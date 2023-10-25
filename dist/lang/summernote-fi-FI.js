@@ -1,13 +1,13 @@
 /*!
  * 
- * Super simple WYSIWYG editor v0.8.20
+ * Super simple WYSIWYG editor v0.8.21
  * https://summernote.org
  *
  *
  * Copyright 2013- Alan Hong and contributors
  * Summernote may be freely distributed under the MIT license.
  *
- * Date: 2021-10-14T21:15Z
+ * Date: 2023-10-25T13:50Z
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -23,7 +23,7 @@
 return /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
 (function ($) {
-  $.extend($.summernote.lang, {
+  $.extend(true, $.summernote.lang, {
     'fi-FI': {
       font: {
         bold: 'Lihavointi',

@@ -1,13 +1,13 @@
 /*!
  * 
- * Super simple WYSIWYG editor v0.8.20
+ * Super simple WYSIWYG editor v0.8.21
  * https://summernote.org
  *
  *
  * Copyright 2013- Alan Hong and contributors
  * Summernote may be freely distributed under the MIT license.
  *
- * Date: 2021-10-14T21:15Z
+ * Date: 2023-10-25T13:50Z
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -23,7 +23,7 @@
 return /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
 (function ($) {
-  $.extend($.summernote.lang, {
+  $.extend(true, $.summernote.lang, {
     'zh-TW': {
       font: {
         bold: '粗體',
@@ -113,7 +113,7 @@ var __webpack_exports__ = {};
         paragraph: '段落',
         outdent: '取消縮排',
         indent: '增加縮排',
-        left: '靠右對齊',
+        left: '靠左對齊',
         center: '靠中對齊',
         right: '靠右對齊',
         justify: '左右對齊'
