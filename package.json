@@ -1,7 +1,7 @@
 {
   "name": "summernote",
   "description": "Super simple WYSIWYG editor",
-  "version": "0.8.20",
+  "version": "0.8.21",
   "license": "MIT",
   "keywords": [
     "editor",
@@ -16,18 +16,20 @@
     "email": "<susukang98@gmail.com>"
   },
   "main": "dist/summernote.js",
+  "engines": {
+    "node": ">=17.0.0"
+  },
   "scripts": {
     "dev": "eslint config && webpack serve --config=./config/webpack.development.js --progress",
     "prebuild": "node ./config/build-fonts.js",
-    "build": "webpack --node-env production --mode=production --config=./config/webpack.production.js --progress",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --node-env production --mode=production --config=./config/webpack.production.js --progress",
     "lint": "eslint src plugin test config",
-    "test": "karma start .karma/config.js --single-run",
+    "test": "NODE_OPTIONS=--openssl-legacy-provider karma start .karma/config.js --single-run",
     "test:grep": "karma run .karma/config.js -- --grep",
     "test:watch": "karma start .karma/config.js",
     "test:travis": "karma start .karma/travis.js --single-run",
     "test:sauce": "karma start .karma/saucelabs.js --single-run",
     "test:debug": "karma start .karma/debug.js",
-    "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
   },
@@ -97,11 +99,14 @@
     "terser-webpack-plugin": "^5.1.1",
     "uglify-js": "^3.9.1",
     "url-loader": "^4.1.0",
-    "webfont": "^11.1.1",
+    "webfont": "^11.2.26",
     "webpack": "^5.40.0",
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^4.3.0",
     "zip-webpack-plugin": "^4.0.1"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
   }
 }
