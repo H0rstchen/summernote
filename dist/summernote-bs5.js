@@ -1,13 +1,13 @@
 /*!
  * 
- * Super simple WYSIWYG editor v0.8.20
+ * Super simple WYSIWYG editor v0.8.20-fixed
  * https://summernote.org
  *
  *
  * Copyright 2013- Alan Hong and contributors
  * Summernote may be freely distributed under the MIT license.
  *
- * Date: 2021-10-14T21:15Z
+ * Date: 2023-10-26T08:38Z
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -9139,7 +9139,7 @@ var HelpDialog = /*#__PURE__*/function () {
     key: "initialize",
     value: function initialize() {
       var $container = this.options.dialogsInBody ? this.$body : this.options.container;
-      var body = ['<p class="text-center">', '<a href="http://summernote.org/" target="_blank" rel="noopener noreferrer">Summernote 0.8.20</a> · ', '<a href="https://github.com/summernote/summernote" target="_blank" rel="noopener noreferrer">Project</a> · ', '<a href="https://github.com/summernote/summernote/issues" target="_blank" rel="noopener noreferrer">Issues</a>', '</p>'].join('');
+      var body = ['<p class="text-center">', '<a href="http://summernote.org/" target="_blank" rel="noopener noreferrer">Summernote 0.8.20-fixed</a> · ', '<a href="https://github.com/summernote/summernote" target="_blank" rel="noopener noreferrer">Project</a> · ', '<a href="https://github.com/summernote/summernote/issues" target="_blank" rel="noopener noreferrer">Issues</a>', '</p>'].join('');
       this.$dialog = this.ui.dialog({
         title: this.lang.options.help,
         fade: this.options.dialogsFade,
@@ -9690,7 +9690,7 @@ var HintPopover = /*#__PURE__*/function () {
 
 
 (external_jQuery_default()).summernote = external_jQuery_default().extend((external_jQuery_default()).summernote, {
-  version: '0.8.20',
+  version: '0.8.20-fixed',
   plugins: {},
   dom: dom,
   range: range,
@@ -10086,9 +10086,9 @@ var dialog = renderer.create('<div class="modal note-modal" aria-hidden="false" 
   });
   $node.html(['<div class="modal-dialog">', '<div class="modal-content">', options.title ? '<div class="modal-header">' + '<h4 class="modal-title">' + options.title + '</h4>' + '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>' + '</div>' : '', '<div class="modal-body">' + options.body + '</div>', options.footer ? '<div class="modal-footer">' + options.footer + '</div>' : '', '</div>', '</div>'].join(''));
 });
-var popover = renderer.create(['<div class="note-popover popover show">', '<div class="popover-arrow"></div>', '<div class="popover-body note-children-container"></div>', '</div>'].join(''), function ($node, options) {
+var popover = renderer.create(['<div class="note-popover popover bs-popover-auto show">', '<div class="popover-arrow"></div>', '<div class="popover-body note-popover-content note-children-container"></div>', '</div>'].join(''), function ($node, options) {
   var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
-  $node.attr('data-bs-placement', direction);
+  $node.attr('data-popper-placement', direction);
 
   if (options.hideArrow) {
     $node.find('.popover-arrow').hide();
@@ -10139,7 +10139,7 @@ var ui = function ui(editorOptions) {
           for (var col = 0, colSize = colors.length; col < colSize; col++) {
             var color = colors[col];
             var colorName = colorsName[col];
-            buttons.push(['<button type="button" class="note-color-btn"', 'style="background-color:', color, '" ', 'data-event="', eventName, '" ', 'data-value="', color, '" ', 'title="', colorName, '" ', 'aria-label="', colorName, '" ', 'data-toggle="button" tabindex="-1"></button>'].join(''));
+            buttons.push(['<button type="button" class="note-color-btn"', 'style="background-color:', color, '" ', 'data-event="', eventName, '" ', 'data-value="', color, '" ', 'title="', colorName, '" ', 'aria-label="', colorName, '" ', 'data-bs-toggle="button" tabindex="-1"></button>'].join(''));
           }
 
           contents.push('<div class="note-color-row">' + buttons.join('') + '</div>');
@@ -10157,8 +10157,18 @@ var ui = function ui(editorOptions) {
       })($node, options);
     },
     button: function button($node, options) {
-      return renderer.create('<button type="button" class="note-btn btn btn-light btn-sm" tabindex="-1">', function ($node, options) {
-        if (options && options.tooltip) {
+      return renderer.create('<button type="button" class="note-btn btn btn-outline-primary btn-sm" tabindex="-1">', function ($node, options) {
+        if (options && options.data && options.data.toggle === 'dropdown') {
+          $node.removeAttr('data-toggle');
+          $node.attr('data-bs-toggle', 'dropdown');
+
+          if (options && options.tooltip) {
+            $node.attr({
+              title: options.tooltip,
+              'aria-label': options.tooltip
+            });
+          }
+        } else if (options && options.tooltip) {
           $node.attr({
             title: options.tooltip,
             'aria-label': options.tooltip
